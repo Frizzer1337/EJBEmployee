@@ -1,5 +1,6 @@
 package com.frizzer.employeeapp.controller;
 
+import com.frizzer.employeeapp.controller.resource.EmployeeInfoResource;
 import com.frizzer.employeeapp.controller.resource.EmployeeResource;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -17,6 +18,7 @@ public class EmployeeApplication extends Application {
 
   public void addRestResourceClasses(Set<Class<?>> resources) {
     resources.add(EmployeeResource.class);
+    resources.add(EmployeeInfoResource.class);
   }
 
 }

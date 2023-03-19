@@ -21,8 +21,13 @@
               <version>1.5.3.Final</version>
             </path>
             <path>
+              <artifactId>lombok-mapstruct-binding</artifactId>
               <groupId>org.projectlombok</groupId>
+              <version>0.2.0</version>
+            </path>
+            <path>
               <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
               <version>1.18.20</version>
             </path>
           </annotationProcessorPaths>
@@ -84,8 +89,8 @@
       <version>1.5.3.Final</version>
     </dependency>
     <dependency>
-      <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
       <version>8.0.30</version>
     </dependency>
     <dependency>

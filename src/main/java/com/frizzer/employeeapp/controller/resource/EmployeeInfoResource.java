@@ -1,8 +1,8 @@
 package com.frizzer.employeeapp.controller.resource;
 
-import com.frizzer.employeeapp.entity.EmployeeDto;
-import com.frizzer.employeeapp.service.EmployeeService;
-import com.frizzer.employeeapp.service.mapper.EmployeeMapper;
+import com.frizzer.employeeapp.entity.EmployeeInfoDto;
+import com.frizzer.employeeapp.service.EmployeeInfoService;
+import com.frizzer.employeeapp.service.mapper.EmployeeInfoMapper;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -16,26 +16,27 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
-@Path("/employees")
+@Path("/employees-info")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class EmployeeResource {
+public class EmployeeInfoResource {
 
   @EJB
-  private EmployeeService employeeService;
+  private EmployeeInfoService employeeInfoService;
 
   @POST
-  public Response save(EmployeeDto employee) {
+  @Path("/{id}")
+  public Response save(@PathParam("id") Long id, EmployeeInfoDto employee) {
     return Response
-        .ok(employeeService.save(EmployeeMapper.INSTANCE.fromDto(employee)))
+        .ok(employeeInfoService.save(EmployeeInfoMapper.INSTANCE.fromDto(employee), id))
         .build();
   }
 
   @PUT
   @Path("/{id}")
-  public Response update(@PathParam("id") Long id, EmployeeDto employee) {
+  public Response update(@PathParam("id") Long id, EmployeeInfoDto employee) {
     return Response
-        .ok(employeeService.update(EmployeeMapper.INSTANCE.fromDto(employee), id))
+        .ok(employeeInfoService.update(EmployeeInfoMapper.INSTANCE.fromDto(employee), id))
         .build();
   }
 
@@ -43,16 +44,22 @@ public class EmployeeResource {
   @Path("/{id}")
   public Response findById(@PathParam("id") Long id) {
     return Response.ok()
-        .entity(EmployeeMapper.INSTANCE.toDto(employeeService.findById(id)))
+        .entity(EmployeeInfoMapper.INSTANCE.toDto(employeeInfoService.findById(id)))
         .build();
   }
 
   @DELETE
   @Path("/{id}")
   public Response delete(@PathParam("id") Long id) {
-    boolean entityExists = employeeService.delete(id);
+    boolean entityExists = employeeInfoService.delete(id);
     return entityExists ? Response.ok(Status.OK).build()
         : Response.status(Status.NOT_FOUND).build();
+  }
+
+  @GET
+  @Path("/hello")
+  public String hello() {
+    return "Hello,i'm currently live";
   }
 
 }

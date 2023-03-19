@@ -19,9 +19,11 @@ public class EmployeeService {
 
   @Transactional
   public Employee update(Employee employee, Long id) {
-    return employeeRepository.update(employee, id);
+    employee.setId(id);
+    return employeeRepository.update(employee);
   }
 
+  @Transactional
   public boolean delete(Long id) {
     return employeeRepository.delete(id);
   }
@@ -29,4 +31,5 @@ public class EmployeeService {
   public Employee findById(Long id) {
     return employeeRepository.findById(id);
   }
+
 }
