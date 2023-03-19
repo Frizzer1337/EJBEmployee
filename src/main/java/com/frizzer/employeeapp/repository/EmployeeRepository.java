@@ -12,11 +12,27 @@ public class EmployeeRepository {
   private EntityManager entityManager;
 
   public Employee save(Employee employee) {
-    return entityManager.merge(employee);
+    entityManager.persist(employee);
+    return employee;
   }
 
   public Employee findById(Long id) {
     return entityManager.find(Employee.class, id);
+  }
+
+  public Employee update(Employee employee, Long id) {
+    employee.setId(id);
+    return entityManager.merge(employee);
+  }
+
+  public boolean delete(Long id) {
+    Employee employee = findById(id);
+    if (employee == null) {
+      return false;
+    } else {
+      entityManager.remove(employee);
+      return true;
+    }
   }
 
 }

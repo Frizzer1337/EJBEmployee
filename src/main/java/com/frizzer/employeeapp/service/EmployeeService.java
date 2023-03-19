@@ -17,6 +17,15 @@ public class EmployeeService {
     return employeeRepository.save(employee);
   }
 
+  @Transactional
+  public Employee update(Employee employee, Long id) {
+    return employeeRepository.update(employee, id);
+  }
+
+  public boolean delete(Long id) {
+    return employeeRepository.delete(id);
+  }
+
   public Employee findById(Long id) {
     return employeeRepository.findById(id);
   }

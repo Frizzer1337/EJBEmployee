@@ -8,9 +8,16 @@ import org.mapstruct.factory.Mappers;
 public interface EmployeeMapper {
 
   EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
-
+  @Mapping(source = "name", target = "name")
+  @Mapping(source = "surname", target = "surname")
+  @Mapping(source = "role", target = "role")
+  @Mapping(source = "salary", target = "salary")
   EmployeeDto toDto(Employee employee);
-  @Mapping(target = "id", ignore = true)
+
+  @Mapping(source = "name", target = "name")
+  @Mapping(source = "surname", target = "surname")
+  @Mapping(source = "role", target = "role")
+  @Mapping(source = "salary", target = "salary")
   Employee fromDto(EmployeeDto employeeDto);
 
 }
