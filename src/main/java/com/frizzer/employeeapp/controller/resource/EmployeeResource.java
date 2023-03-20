@@ -2,6 +2,7 @@ package com.frizzer.employeeapp.controller.resource;
 
 import com.frizzer.employeeapp.entity.Employee;
 import com.frizzer.employeeapp.entity.EmployeeDto;
+import com.frizzer.employeeapp.entity.EmployeeRole;
 import com.frizzer.employeeapp.security.JwtTokenService;
 import com.frizzer.employeeapp.service.EmployeeService;
 import com.frizzer.employeeapp.service.mapper.EmployeeMapper;
@@ -29,27 +30,29 @@ import lombok.extern.slf4j.Slf4j;
 @Path("/employees")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@DeclareRoles({"ADMIN", "WORKER"})
+@DeclareRoles({"ADMIN","WORKER"})
 public class EmployeeResource {
 
   @EJB
   private EmployeeService employeeService;
   @EJB
   private JwtTokenService jwtTokenService;
-
   @Context
   private SecurityContext context;
 
   @POST
+  @RolesAllowed("ADMIN")
   public Response save(EmployeeDto employee) {
-    return Response
-        .ok(employeeService.save(EmployeeMapper.INSTANCE.fromDto(employee)))
-        .build();
+    if (isAdmin()) {
+      return Response.ok(EmployeeMapper.INSTANCE.fromDto(employee)).build();
+    } else {
+      return Response.status(Status.FORBIDDEN).build();
+    }
   }
 
   @POST
-  @PermitAll
   @Path(("/login"))
+  @PermitAll
   public Response login(EmployeeDto employee) {
     Employee entity = employeeService.findByLogin(employee.getLogin());
     if (entity != null && entity.getPassword().equals(employee.getPassword())) {
@@ -64,14 +67,20 @@ public class EmployeeResource {
 
   @PUT
   @Path("/{id}")
+  @RolesAllowed("ADMIN")
   public Response update(@PathParam("id") Long id, EmployeeDto employee) {
-    return Response
-        .ok(employeeService.update(EmployeeMapper.INSTANCE.fromDto(employee), id))
-        .build();
+    if (isAdmin()) {
+      return Response
+          .ok(employeeService.update(EmployeeMapper.INSTANCE.fromDto(employee), id))
+          .build();
+    } else {
+      return Response.status(Status.FORBIDDEN).build();
+    }
   }
 
   @GET
   @Path("/{id}")
+  @RolesAllowed({"ADMIN", "WORKER"})
   public Response findById(@PathParam("id") Long id) {
     return Response.ok()
         .entity(EmployeeMapper.INSTANCE.toDto(employeeService.findById(id)))
@@ -80,24 +89,45 @@ public class EmployeeResource {
 
   @DELETE
   @Path("/{id}")
+  @RolesAllowed("ADMIN")
   public Response delete(@PathParam("id") Long id) {
-    boolean entityExists = employeeService.delete(id);
-    return entityExists ? Response.ok(Status.OK).build()
-        : Response.status(Status.NOT_FOUND).build();
+    if (isAdmin()) {
+      boolean entityExists = employeeService.delete(id);
+      return entityExists ? Response.ok(Status.OK).build()
+          : Response.status(Status.NOT_FOUND).build();
+    } else {
+      return Response.status(Status.FORBIDDEN).build();
+    }
   }
 
   @GET
   @Path("/admin")
   @RolesAllowed("ADMIN")
   public Response hiAdmin() {
-    return Response.ok("Hi admin!").build();
+    if (isAdmin()) {
+      return Response.ok("Hi admin").build();
+    } else {
+      return Response.status(Status.FORBIDDEN).build();
+    }
   }
 
   @GET
   @Path("/worker")
   @RolesAllowed({"WORKER"})
   public Response hiWorker() {
-    return Response.ok("Hi worker!").build();
+    if (isWorker()) {
+      return Response.ok("Hi worker").build();
+    } else {
+      return Response.status(Status.FORBIDDEN).build();
+    }
+  }
+
+  private boolean isAdmin() {
+    return context.isUserInRole(String.valueOf(EmployeeRole.ADMIN));
+  }
+
+  private boolean isWorker(){
+    return context.isUserInRole(String.valueOf(EmployeeRole.WORKER));
   }
 
 }
