@@ -2,11 +2,10 @@ package com.frizzer.employeeapp.controller.resource;
 
 import com.frizzer.employeeapp.entity.Employee;
 import com.frizzer.employeeapp.entity.EmployeeDto;
-import com.frizzer.employeeapp.entity.EmployeeRole;
-import com.frizzer.employeeapp.security.JwtSecurityContext;
 import com.frizzer.employeeapp.security.JwtTokenService;
 import com.frizzer.employeeapp.service.EmployeeService;
 import com.frizzer.employeeapp.service.mapper.EmployeeMapper;
+import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
@@ -30,13 +29,16 @@ import lombok.extern.slf4j.Slf4j;
 @Path("/employees")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed({"ADMIN", "WORKER"})
+@DeclareRoles({"ADMIN", "WORKER"})
 public class EmployeeResource {
 
   @EJB
   private EmployeeService employeeService;
   @EJB
   private JwtTokenService jwtTokenService;
+
+  @Context
+  private SecurityContext context;
 
   @POST
   public Response save(EmployeeDto employee) {
@@ -87,22 +89,14 @@ public class EmployeeResource {
   @GET
   @Path("/admin")
   @RolesAllowed("ADMIN")
-  public Response hiAdmin(@Context SecurityContext context) {
-    JwtSecurityContext jwtContext = (JwtSecurityContext) context;
-    if (!jwtContext.isUserInRole(EmployeeRole.ADMIN)) {
-      return Response.status(Response.Status.FORBIDDEN).build();
-    }
+  public Response hiAdmin() {
     return Response.ok("Hi admin!").build();
   }
 
   @GET
   @Path("/worker")
   @RolesAllowed({"WORKER"})
-  public Response hiWorker(@Context SecurityContext context) {
-    JwtSecurityContext jwtContext = (JwtSecurityContext) context;
-    if (!jwtContext.isUserInRole(EmployeeRole.WORKER)) {
-      return Response.status(Response.Status.FORBIDDEN).build();
-    }
+  public Response hiWorker() {
     return Response.ok("Hi worker!").build();
   }
 
