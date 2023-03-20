@@ -6,7 +6,7 @@ import jakarta.persistence.PersistenceContext;
 public abstract class AbstractRepository<T> {
 
   @PersistenceContext
-  private EntityManager entityManager;
+  protected EntityManager entityManager;
 
   protected AbstractRepository() {}
   public T save(T t) {

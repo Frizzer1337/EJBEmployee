@@ -28,6 +28,8 @@ public class EmployeeService {
     return employeeRepository.delete(id);
   }
 
+  public Employee findByLogin(String login){return employeeRepository.findByLogin(login);}
+
   public Employee findById(Long id) {
     return employeeRepository.findById(id);
   }

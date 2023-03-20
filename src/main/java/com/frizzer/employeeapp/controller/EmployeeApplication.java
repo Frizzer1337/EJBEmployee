@@ -2,6 +2,7 @@ package com.frizzer.employeeapp.controller;
 
 import com.frizzer.employeeapp.controller.resource.EmployeeInfoResource;
 import com.frizzer.employeeapp.controller.resource.EmployeeResource;
+import com.frizzer.employeeapp.controller.resource.JwtTokenFilter;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import java.util.Set;
@@ -19,6 +20,7 @@ public class EmployeeApplication extends Application {
   public void addRestResourceClasses(Set<Class<?>> resources) {
     resources.add(EmployeeResource.class);
     resources.add(EmployeeInfoResource.class);
+    resources.add(JwtTokenFilter.class);
   }
 
 }
