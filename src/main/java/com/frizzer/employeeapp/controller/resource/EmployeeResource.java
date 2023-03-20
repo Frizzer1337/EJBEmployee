@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Path("/employees")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@RolesAllowed({"ADMIN", "WORKER"})
 public class EmployeeResource {
 
   @EJB
@@ -85,10 +86,10 @@ public class EmployeeResource {
 
   @GET
   @Path("/admin")
-  @RolesAllowed({"ADMIN"})
-  public Response hiAdmin(@Context SecurityContext context){
+  @RolesAllowed("ADMIN")
+  public Response hiAdmin(@Context SecurityContext context) {
     JwtSecurityContext jwtContext = (JwtSecurityContext) context;
-    if (!jwtContext.hasRole(EmployeeRole.ADMIN)) {
+    if (!jwtContext.isUserInRole(EmployeeRole.ADMIN)) {
       return Response.status(Response.Status.FORBIDDEN).build();
     }
     return Response.ok("Hi admin!").build();
@@ -97,9 +98,9 @@ public class EmployeeResource {
   @GET
   @Path("/worker")
   @RolesAllowed({"WORKER"})
-  public Response hiWorker(@Context SecurityContext context){
+  public Response hiWorker(@Context SecurityContext context) {
     JwtSecurityContext jwtContext = (JwtSecurityContext) context;
-    if (!jwtContext.hasRole(EmployeeRole.WORKER)) {
+    if (!jwtContext.isUserInRole(EmployeeRole.WORKER)) {
       return Response.status(Response.Status.FORBIDDEN).build();
     }
     return Response.ok("Hi worker!").build();

@@ -36,13 +36,9 @@ public class JwtSecurityContext implements SecurityContext {
     return "Bearer";
   }
 
-  public boolean hasRole(EmployeeRole roleName) {
-    for (String role : roles) {
-      if (role.equalsIgnoreCase(roleName.toString())) {
-        return true;
-      }
-    }
-    return false;
+  public boolean isUserInRole(EmployeeRole employeeRole){
+    return isUserInRole(employeeRole.toString());
   }
+
 
 }
