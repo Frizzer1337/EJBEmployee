@@ -2,7 +2,8 @@ package com.frizzer.employeeapp.controller;
 
 import com.frizzer.employeeapp.controller.resource.EmployeeInfoResource;
 import com.frizzer.employeeapp.controller.resource.EmployeeResource;
-import com.frizzer.employeeapp.controller.resource.JwtTokenFilter;
+import com.frizzer.employeeapp.controller.resource.secure.TokenAuthenticationFilter;
+import com.frizzer.employeeapp.controller.resource.secure.TokenAuthorizationFilter;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -22,7 +23,8 @@ public class EmployeeApplication extends Application {
   public void addRestResourceClasses(Set<Class<?>> resources) {
     resources.add(EmployeeResource.class);
     resources.add(EmployeeInfoResource.class);
-    resources.add(JwtTokenFilter.class);
+    resources.add(TokenAuthenticationFilter.class);
+    resources.add(TokenAuthorizationFilter.class);
   }
 
 }

@@ -1,6 +1,5 @@
 package com.frizzer.employeeapp.security;
 
-import com.frizzer.employeeapp.entity.EmployeeRole;
 import jakarta.ws.rs.core.SecurityContext;
 import java.security.Principal;
 import java.util.Arrays;
@@ -23,21 +22,20 @@ public class JwtSecurityContext implements SecurityContext {
   public Principal getUserPrincipal() {
     return () -> username;
   }
+
   @Override
   public boolean isUserInRole(String role) {
     return roles.contains(role);
   }
+
   @Override
   public boolean isSecure() {
     return isSecure;
   }
+
   @Override
   public String getAuthenticationScheme() {
     return "Bearer";
-  }
-
-  public boolean isUserInRole(EmployeeRole employeeRole){
-    return isUserInRole(employeeRole.toString());
   }
 
 

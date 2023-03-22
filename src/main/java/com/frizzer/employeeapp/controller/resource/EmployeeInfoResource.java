@@ -1,9 +1,8 @@
 package com.frizzer.employeeapp.controller.resource;
 
 import com.frizzer.employeeapp.entity.EmployeeInfoDto;
-import com.frizzer.employeeapp.entity.EmployeeRole;
+import com.frizzer.employeeapp.mapper.EmployeeInfoMapper;
 import com.frizzer.employeeapp.service.EmployeeInfoService;
-import com.frizzer.employeeapp.service.mapper.EmployeeInfoMapper;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
@@ -37,26 +36,20 @@ public class EmployeeInfoResource {
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response save(@PathParam("id") Long id, EmployeeInfoDto employee) {
-    if (isAdmin()) {
-      return Response
-          .ok(employeeInfoService.save(EmployeeInfoMapper.INSTANCE.fromDto(employee), id))
-          .build();
-    } else {
-      return Response.status(Status.FORBIDDEN).build();
-    }
+    return Response
+        .ok(employeeInfoService.save(EmployeeInfoMapper.INSTANCE.fromDto(employee), id))
+        .build();
+
   }
 
   @PUT
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response update(@PathParam("id") Long id, EmployeeInfoDto employee) {
-    if (isAdmin()) {
-      return Response
-          .ok(employeeInfoService.update(EmployeeInfoMapper.INSTANCE.fromDto(employee), id))
-          .build();
-    } else {
-      return Response.status(Status.FORBIDDEN).build();
-    }
+    return Response
+        .ok(employeeInfoService.update(EmployeeInfoMapper.INSTANCE.fromDto(employee), id))
+        .build();
+
   }
 
   @GET
@@ -71,17 +64,10 @@ public class EmployeeInfoResource {
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response delete(@PathParam("id") Long id) {
-    if (isAdmin()) {
-      boolean entityExists = employeeInfoService.delete(id);
-      return entityExists ? Response.ok(Status.OK).build()
-          : Response.status(Status.NOT_FOUND).build();
-    } else {
-      return Response.status(Status.FORBIDDEN).build();
-    }
+    boolean entityExists = employeeInfoService.delete(id);
+    return entityExists ? Response.ok(Status.OK).build()
+        : Response.status(Status.NOT_FOUND).build();
   }
 
-  private boolean isAdmin() {
-    return context.isUserInRole(String.valueOf(EmployeeRole.ADMIN));
-  }
 
 }

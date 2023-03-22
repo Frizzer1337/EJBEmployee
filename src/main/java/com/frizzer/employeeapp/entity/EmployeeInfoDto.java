@@ -1,6 +1,8 @@
 package com.frizzer.employeeapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import lombok.Data;
 
@@ -8,7 +10,13 @@ import lombok.Data;
 public class EmployeeInfoDto {
 
   @JsonProperty("name")
+  @NotNull(message = "Name cannot be null")
+  @Size(min = 5, max = 45, message = "Login must be between 5 and 45 characters")
   private String name;
+  @NotNull(message = "Surname cannot be null")
+  @Size(min = 5, max = 45, message = "Login must be between 5 and 45 characters")
   private String surname;
+  @NotNull(message = "Login cannot be null")
+  @Size(min = 5, max = 45, message = "Login must be between 5 and 45 characters")
   private BigDecimal salary;
 }

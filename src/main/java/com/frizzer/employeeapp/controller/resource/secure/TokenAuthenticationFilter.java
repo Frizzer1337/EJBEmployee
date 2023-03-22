@@ -1,4 +1,4 @@
-package com.frizzer.employeeapp.controller.resource;
+package com.frizzer.employeeapp.controller.resource.secure;
 
 import com.frizzer.employeeapp.security.JwtSecurityContext;
 import com.frizzer.employeeapp.security.JwtTokenService;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Provider
 @Priority(Priorities.AUTHENTICATION)
-public class JwtTokenFilter implements ContainerRequestFilter {
+public class TokenAuthenticationFilter implements ContainerRequestFilter {
 
   private static final String REALM = "example";
   private static final String AUTHENTICATION_SCHEME = "Bearer";

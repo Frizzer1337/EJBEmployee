@@ -1,4 +1,4 @@
-package com.frizzer.employeeapp.service.mapper;
+package com.frizzer.employeeapp.mapper;
 
 import com.frizzer.employeeapp.entity.Employee;
 import com.frizzer.employeeapp.entity.EmployeeDto;
