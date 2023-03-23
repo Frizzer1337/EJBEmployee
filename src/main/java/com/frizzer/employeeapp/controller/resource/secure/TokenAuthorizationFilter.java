@@ -22,6 +22,12 @@ public class TokenAuthorizationFilter implements ContainerRequestFilter {
   @Context
   private ResourceInfo resourceInfo;
 
+  private static void refuseRequest(ContainerRequestContext requestContext) {
+    requestContext.abortWith(Response.status(Status.FORBIDDEN)
+        .header(HttpHeaders.AUTHORIZATION, "You role is forbidden for this action")
+        .build());
+  }
+
   @Override
   public void filter(ContainerRequestContext requestContext) {
 
@@ -76,11 +82,5 @@ public class TokenAuthorizationFilter implements ContainerRequestFilter {
 
   private boolean isNotAuthenticated(ContainerRequestContext requestContext) {
     return requestContext.getSecurityContext().getUserPrincipal() == null;
-  }
-
-  private static void refuseRequest(ContainerRequestContext requestContext) {
-    requestContext.abortWith(Response.status(Status.FORBIDDEN)
-        .header(HttpHeaders.AUTHORIZATION,"You role is forbidden for this action" )
-        .build());
   }
 }

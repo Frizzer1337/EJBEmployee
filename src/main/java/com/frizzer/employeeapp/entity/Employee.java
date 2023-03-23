@@ -17,7 +17,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table(name = "permissions")
+@Table(name = "employee")
 public class Employee {
 
   @Id

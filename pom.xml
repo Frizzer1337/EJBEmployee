@@ -31,8 +31,8 @@
               <version>1.18.20</version>
             </path>
           </annotationProcessorPaths>
-          <source>9</source>
-          <target>9</target>
+          <source>11</source>
+          <target>11</target>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.8.1</version>
@@ -41,9 +41,15 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
+      <groupId>jakarta.validation</groupId>
       <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>rest-assured</artifactId>
+      <groupId>io.rest-assured</groupId>
+      <scope>test</scope>
+      <version>5.3.0</version>
     </dependency>
     <dependency>
       <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -113,36 +119,52 @@
       <version>1.18.20</version>
     </dependency>
     <dependency>
-      <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-api</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
       <version>0.11.2</version>
     </dependency>
     <dependency>
-      <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-impl</artifactId>
-      <version>0.11.2</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
       <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-jackson</artifactId>
-      <version>0.11.2</version>
       <scope>runtime</scope>
+      <version>0.11.2</version>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <scope>runtime</scope>
+      <version>0.11.2</version>
+    </dependency>
+    <dependency>
       <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
       <version>1.6.6</version>
     </dependency>
     <dependency>
-      <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
+      <groupId>commons-codec</groupId>
       <version>1.15</version>
     </dependency>
     <dependency>
-      <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
+      <groupId>org.hibernate.validator</groupId>
       <version>6.0.13.Final</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxb-api</artifactId>
+      <groupId>javax.xml.bind</groupId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxb-runtime</artifactId>
+      <groupId>org.glassfish.jaxb</groupId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>gson</artifactId>
+      <groupId>com.google.code.gson</groupId>
+      <scope>test</scope>
+      <version>2.10</version>
     </dependency>
   </dependencies>
   <groupId>com.frizzer.employeeapp</groupId>

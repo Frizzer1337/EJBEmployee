@@ -49,9 +49,7 @@ public class EmployeeResource {
     Employee entity = employeeService.findByLogin(employee.getLogin());
     if (entity != null && entity.getPassword().equals(employee.getPassword())) {
       String token = jwtTokenService.generateToken(entity.getLogin(), entity.getRole());
-      return Response.ok()
-          .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-          .build();
+      return Response.ok("You're successfully logged in").header(HttpHeaders.AUTHORIZATION, "Bearer " + token).build();
     } else {
       return Response.status(Status.UNAUTHORIZED).build();
     }
@@ -61,9 +59,7 @@ public class EmployeeResource {
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response update(@PathParam("id") Long id, @Valid EmployeeDto employee) {
-    return Response
-        .ok(employeeService.update(EmployeeMapper.INSTANCE.fromDto(employee), id))
-        .build();
+    return Response.ok(employeeService.update(EmployeeMapper.INSTANCE.fromDto(employee), id)).build();
 
   }
 
@@ -71,9 +67,7 @@ public class EmployeeResource {
   @Path("/{id}")
   @RolesAllowed({"ADMIN", "WORKER"})
   public Response findById(@PathParam("id") Long id) {
-    return Response.ok()
-        .entity(EmployeeMapper.INSTANCE.toDto(employeeService.findById(id)))
-        .build();
+    return Response.ok().entity(EmployeeMapper.INSTANCE.toDto(employeeService.findById(id))).build();
   }
 
   @DELETE
@@ -81,8 +75,7 @@ public class EmployeeResource {
   @RolesAllowed("ADMIN")
   public Response delete(@PathParam("id") Long id) {
     boolean entityExists = employeeService.delete(id);
-    return entityExists ? Response.ok(Status.OK).build()
-        : Response.status(Status.NOT_FOUND).build();
+    return entityExists ? Response.ok(Status.OK).build() : Response.status(Status.NOT_FOUND).build();
   }
 
   @GET

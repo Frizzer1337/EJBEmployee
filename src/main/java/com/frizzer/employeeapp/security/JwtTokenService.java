@@ -15,6 +15,7 @@ import java.util.Date;
 @Startup
 @Singleton
 public class JwtTokenService {
+
   private Key key;
 
   @PostConstruct

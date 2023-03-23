@@ -8,11 +8,14 @@ public abstract class AbstractRepository<T> {
   @PersistenceContext
   protected EntityManager entityManager;
 
-  protected AbstractRepository() {}
+  protected AbstractRepository() {
+  }
+
   public T save(T t) {
     entityManager.persist(t);
     return t;
   }
+
   public T update(T t) {
     return entityManager.merge(t);
   }
@@ -30,6 +33,7 @@ public abstract class AbstractRepository<T> {
       return true;
     }
   }
+
   public abstract Class<T> getEntityClass();
 
 

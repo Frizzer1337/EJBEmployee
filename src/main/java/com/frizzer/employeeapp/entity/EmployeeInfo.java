@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table(name = "employee", schema = "employee_task")
+@Table(name = "employee_info", schema = "employee_task")
 public class EmployeeInfo {
 
   @Id
