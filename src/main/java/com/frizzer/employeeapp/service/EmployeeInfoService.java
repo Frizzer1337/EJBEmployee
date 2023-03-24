@@ -1,6 +1,8 @@
 package com.frizzer.employeeapp.service;
 
 import com.frizzer.employeeapp.entity.EmployeeInfo;
+import com.frizzer.employeeapp.entity.EmployeeInfoDto;
+import com.frizzer.employeeapp.mapper.EmployeeInfoMapper;
 import com.frizzer.employeeapp.repository.EmployeeInfoRepository;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -13,15 +15,17 @@ public class EmployeeInfoService {
   private EmployeeInfoRepository employeeInfoRepository;
 
   @Transactional
-  public EmployeeInfo save(EmployeeInfo employeeInfo, Long id) {
+  public EmployeeInfoDto save(EmployeeInfoDto employeeInfoDto, Long id) {
+    EmployeeInfo employeeInfo = EmployeeInfoMapper.INSTANCE.fromDto(employeeInfoDto);
     employeeInfo.setId(id);
-    return employeeInfoRepository.save(employeeInfo);
+    return EmployeeInfoMapper.INSTANCE.toDto(employeeInfoRepository.save(employeeInfo));
   }
 
   @Transactional
-  public EmployeeInfo update(EmployeeInfo employeeInfo, Long id) {
+  public EmployeeInfoDto update(EmployeeInfoDto employeeInfoDto, Long id) {
+    EmployeeInfo employeeInfo = EmployeeInfoMapper.INSTANCE.fromDto(employeeInfoDto);
     employeeInfo.setId(id);
-    return employeeInfoRepository.update(employeeInfo);
+    return EmployeeInfoMapper.INSTANCE.toDto(employeeInfoRepository.update(employeeInfo));
   }
 
   @Transactional
@@ -29,7 +33,7 @@ public class EmployeeInfoService {
     return employeeInfoRepository.delete(id);
   }
 
-  public EmployeeInfo findById(Long id) {
-    return employeeInfoRepository.findById(id);
+  public EmployeeInfoDto findById(Long id) {
+    return EmployeeInfoMapper.INSTANCE.toDto(employeeInfoRepository.findById(id));
   }
 }
