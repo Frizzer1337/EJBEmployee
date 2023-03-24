@@ -1,9 +1,6 @@
 package com.frizzer.employeeapp.controller.resource;
 
-import com.frizzer.employeeapp.entity.Employee;
-import com.frizzer.employeeapp.entity.EmployeeDto;
-import com.frizzer.employeeapp.mapper.EmployeeMapper;
-import com.frizzer.employeeapp.security.JwtTokenService;
+import com.frizzer.employeeapp.entity.EmployeeRequestDto;
 import com.frizzer.employeeapp.service.EmployeeService;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.PermitAll;
@@ -33,22 +30,20 @@ public class EmployeeResource {
 
   @EJB
   private EmployeeService employeeService;
-  @EJB
-  private JwtTokenService jwtTokenService;
+
 
   @POST
   @RolesAllowed("ADMIN")
-  public Response save(@Valid EmployeeDto employee) {
-    return Response.ok(employeeService.save(EmployeeMapper.INSTANCE.fromDto(employee))).build();
+  public Response save(@Valid EmployeeRequestDto employee) {
+    return Response.ok(employeeService.save(employee)).build();
   }
 
   @POST
   @Path(("/login"))
   @PermitAll
-  public Response login(@Valid EmployeeDto employee) {
-    Employee entity = employeeService.findByLogin(employee.getLogin());
-    if (entity != null && entity.getPassword().equals(employee.getPassword())) {
-      String token = jwtTokenService.generateToken(entity.getLogin(), entity.getRole());
+  public Response login(@Valid EmployeeRequestDto employee) {
+    if (employeeService.checkIfPasswordCorrect(employee)) {
+      String token = employeeService.generateToken(employee);
       return Response.ok("You're successfully logged in").header(HttpHeaders.AUTHORIZATION, "Bearer " + token).build();
     } else {
       return Response.status(Status.UNAUTHORIZED).build();
@@ -58,16 +53,23 @@ public class EmployeeResource {
   @PUT
   @Path("/{id}")
   @RolesAllowed("ADMIN")
-  public Response update(@PathParam("id") Long id, @Valid EmployeeDto employee) {
-    return Response.ok(employeeService.update(EmployeeMapper.INSTANCE.fromDto(employee), id)).build();
+  public Response update(@PathParam("id") Long id, @Valid EmployeeRequestDto employee) {
+    return Response.ok(employeeService.update(employee, id)).build();
 
+  }
+
+  @GET
+  @Path("")
+  @RolesAllowed({"ADMIN", "WORKER"})
+  public Response findAll() {
+    return Response.ok().entity(employeeService.findAll()).build();
   }
 
   @GET
   @Path("/{id}")
   @RolesAllowed({"ADMIN", "WORKER"})
   public Response findById(@PathParam("id") Long id) {
-    return Response.ok().entity(EmployeeMapper.INSTANCE.toDto(employeeService.findById(id))).build();
+    return Response.ok().entity(employeeService.findById(id)).build();
   }
 
   @DELETE

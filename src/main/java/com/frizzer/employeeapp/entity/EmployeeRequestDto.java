@@ -3,12 +3,10 @@ package com.frizzer.employeeapp.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
-public class EmployeeDto {
+public class EmployeeRequestDto {
 
   @JsonProperty("login")
   @NotNull(message = "Login cannot be null")

@@ -3,6 +3,7 @@ package com.frizzer.employeeapp.repository;
 import com.frizzer.employeeapp.entity.Employee;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.TypedQuery;
+import java.util.List;
 
 @Stateless
 public class EmployeeRepository extends AbstractRepository<Employee> {
@@ -13,6 +14,10 @@ public class EmployeeRepository extends AbstractRepository<Employee> {
     TypedQuery<Employee> query = entityManager.createQuery(SELECT_BY_LOGIN, Employee.class);
     query.setParameter("login", login);
     return query.getSingleResult();
+  }
+
+  public List<Employee> findAll() {
+    return entityManager.createQuery("from Employee", Employee.class).getResultList();
   }
 
   @Override
