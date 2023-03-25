@@ -5,6 +5,7 @@ import com.frizzer.employeeapp.service.EmployeeInfoService;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -29,7 +30,7 @@ public class EmployeeInfoResource {
   @POST
   @Path("/{id}")
   @RolesAllowed("ADMIN")
-  public Response save(@PathParam("id") Long id, EmployeeInfoDto employee) {
+  public Response save(@PathParam("id") Long id,@Valid EmployeeInfoDto employee) {
     return Response
         .ok(employeeInfoService.save(employee, id))
         .build();
@@ -39,7 +40,7 @@ public class EmployeeInfoResource {
   @PUT
   @Path("/{id}")
   @RolesAllowed("ADMIN")
-  public Response update(@PathParam("id") Long id, EmployeeInfoDto employee) {
+  public Response update(@PathParam("id") Long id,@Valid EmployeeInfoDto employee) {
     return Response
         .ok(employeeInfoService.update(employee, id))
         .build();

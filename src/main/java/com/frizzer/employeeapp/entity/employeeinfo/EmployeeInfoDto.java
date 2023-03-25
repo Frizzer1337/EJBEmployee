@@ -16,7 +16,6 @@ public class EmployeeInfoDto {
   @NotNull(message = "Surname cannot be null")
   @Size(min = 5, max = 45, message = "Login must be between 5 and 45 characters")
   private String surname;
-  @NotNull(message = "Login cannot be null")
-  @Size(min = 5, max = 45, message = "Login must be between 5 and 45 characters")
+  @NotNull(message = "Salary cannot be null")
   private BigDecimal salary;
 }
