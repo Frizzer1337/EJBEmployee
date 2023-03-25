@@ -6,8 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-import com.frizzer.employeeapp.entity.Employee;
-import com.frizzer.employeeapp.entity.EmployeeRequestDto;
+import com.frizzer.employeeapp.entity.employee.Employee;
+import com.frizzer.employeeapp.entity.employee.EmployeeRequestDto;
 import com.google.gson.JsonObject;
 import java.net.URI;
 import java.net.http.HttpClient;

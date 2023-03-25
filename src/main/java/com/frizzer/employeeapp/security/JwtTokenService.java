@@ -1,6 +1,6 @@
 package com.frizzer.employeeapp.security;
 
-import com.frizzer.employeeapp.entity.EmployeeRole;
+import com.frizzer.employeeapp.entity.employee.EmployeeRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
