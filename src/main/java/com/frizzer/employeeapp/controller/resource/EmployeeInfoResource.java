@@ -1,6 +1,6 @@
 package com.frizzer.employeeapp.controller.resource;
 
-import com.frizzer.employeeapp.entity.EmployeeInfoDto;
+import com.frizzer.employeeapp.entity.employeeinfo.EmployeeInfoDto;
 import com.frizzer.employeeapp.service.EmployeeInfoService;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;

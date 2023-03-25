@@ -1,8 +1,8 @@
 package com.frizzer.employeeapp.mapper;
 
-import com.frizzer.employeeapp.entity.Employee;
-import com.frizzer.employeeapp.entity.EmployeeRequestDto;
-import com.frizzer.employeeapp.entity.EmployeeResponseDto;
+import com.frizzer.employeeapp.entity.employee.Employee;
+import com.frizzer.employeeapp.entity.employee.EmployeeRequestDto;
+import com.frizzer.employeeapp.entity.employee.EmployeeResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

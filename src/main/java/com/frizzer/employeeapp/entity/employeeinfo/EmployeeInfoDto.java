@@ -1,4 +1,4 @@
-package com.frizzer.employeeapp.entity;
+package com.frizzer.employeeapp.entity.employeeinfo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;

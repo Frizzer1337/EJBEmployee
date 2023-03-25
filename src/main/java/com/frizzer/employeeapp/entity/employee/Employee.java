@@ -1,4 +1,4 @@
-package com.frizzer.employeeapp.entity;
+package com.frizzer.employeeapp.entity.employee;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,4 +1,4 @@
-package com.frizzer.employeeapp.entity;
+package com.frizzer.employeeapp.entity.employeeinfo;
 
 
 import jakarta.persistence.Entity;

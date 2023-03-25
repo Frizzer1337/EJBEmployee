@@ -1,6 +1,6 @@
 package com.frizzer.employeeapp.repository;
 
-import com.frizzer.employeeapp.entity.EmployeeInfo;
+import com.frizzer.employeeapp.entity.employeeinfo.EmployeeInfo;
 import jakarta.ejb.Stateless;
 
 @Stateless

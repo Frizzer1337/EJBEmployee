@@ -1,7 +1,7 @@
 package com.frizzer.employeeapp.service;
 
-import com.frizzer.employeeapp.entity.EmployeeInfo;
-import com.frizzer.employeeapp.entity.EmployeeInfoDto;
+import com.frizzer.employeeapp.entity.employeeinfo.EmployeeInfo;
+import com.frizzer.employeeapp.entity.employeeinfo.EmployeeInfoDto;
 import com.frizzer.employeeapp.mapper.EmployeeInfoMapper;
 import com.frizzer.employeeapp.repository.EmployeeInfoRepository;
 import jakarta.ejb.EJB;

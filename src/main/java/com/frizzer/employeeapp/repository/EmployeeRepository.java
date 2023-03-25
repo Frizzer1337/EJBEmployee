@@ -1,6 +1,6 @@
 package com.frizzer.employeeapp.repository;
 
-import com.frizzer.employeeapp.entity.Employee;
+import com.frizzer.employeeapp.entity.employee.Employee;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.TypedQuery;
 import java.util.List;

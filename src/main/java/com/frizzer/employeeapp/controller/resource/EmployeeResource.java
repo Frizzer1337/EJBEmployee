@@ -1,6 +1,6 @@
 package com.frizzer.employeeapp.controller.resource;
 
-import com.frizzer.employeeapp.entity.EmployeeRequestDto;
+import com.frizzer.employeeapp.entity.employee.EmployeeRequestDto;
 import com.frizzer.employeeapp.service.EmployeeService;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.PermitAll;
