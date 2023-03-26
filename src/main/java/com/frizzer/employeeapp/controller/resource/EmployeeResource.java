@@ -1,6 +1,7 @@
 package com.frizzer.employeeapp.controller.resource;
 
 import com.frizzer.employeeapp.entity.employee.EmployeeRequestDto;
+import com.frizzer.employeeapp.exception.DataNotFoundException;
 import com.frizzer.employeeapp.service.EmployeeService;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.PermitAll;
@@ -35,7 +36,11 @@ public class EmployeeResource {
   @POST
   @RolesAllowed("ADMIN")
   public Response save(@Valid EmployeeRequestDto employee) {
-    return Response.ok(employeeService.save(employee)).build();
+    try {
+      return Response.ok(employeeService.save(employee)).build();
+    } catch (RuntimeException e) {
+      throw new DataNotFoundException("Employee with login " + employee.getLogin() + " already exists");
+    }
   }
 
   @POST
