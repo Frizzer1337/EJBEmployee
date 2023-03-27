@@ -97,6 +97,12 @@
       <version>${junit.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.2.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <version>2.2.3</version>

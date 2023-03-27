@@ -5,19 +5,35 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.frizzer.employeeapp.entity.employee.Employee;
 import com.frizzer.employeeapp.entity.employee.EmployeeRequestDto;
+import com.frizzer.employeeapp.repository.EmployeeRepository;
+import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
 
 class EmployeeTest extends AbstractTest {
+
+  @Mock
+  private static EmployeeRepository employeeRepository;
+
+  @BeforeAll
+  public static void init() {
+    employeeRepository = mock(EmployeeRepository.class);
+    when(employeeRepository.findAll()).thenReturn(List.of(new Employee(111L, "1", "1")));
+  }
 
   @Test
   void testFindById() {
     String accessToken = getAccessToken(ADMIN_LOGIN, ADMIN_PASSWORD).split(" ")[1];
     JwtAuthFilter authFilter = new JwtAuthFilter(accessToken);
-    long id = 15;
+    long id = employeeRepository.findAll().get(0).getId();
     Employee employee =
         given().baseUri(BASE_URL)
             .contentType(JSON)
@@ -96,7 +112,7 @@ class EmployeeTest extends AbstractTest {
   @Test
   void testUpdateByFakeData() {
     String accessToken = getAccessToken(ADMIN_LOGIN, ADMIN_PASSWORD).split(" ")[1];
-    long id = 15;
+    long id = employeeRepository.findAll().get(0).getId();
     String fakeLogin = RandomStringUtils.random(10);
     String fakePassword = RandomStringUtils.random(10);
     EmployeeRequestDto badEmployee = new EmployeeRequestDto();
@@ -108,7 +124,7 @@ class EmployeeTest extends AbstractTest {
         .body(badEmployee)
         .filter(authFilter)
         .when()
-        .put(BASE_URL + "/" + 15)
+        .put(BASE_URL + "/" + id)
         .then()
         .assertThat()
         .statusCode(200);

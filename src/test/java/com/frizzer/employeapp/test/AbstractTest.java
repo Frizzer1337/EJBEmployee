@@ -30,7 +30,7 @@ public abstract class AbstractTest {
         .build();
     HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
     return response.headers().firstValue(AUTHORIZATION).orElse(BAD_AUTHORIZATION);
-
   }
+
 
 }
