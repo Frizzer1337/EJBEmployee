@@ -1,7 +1,6 @@
 package com.frizzer.employeeapp.controller.resource;
 
 import com.frizzer.employeeapp.entity.employee.EmployeeRequestDto;
-import com.frizzer.employeeapp.exception.DataNotFoundException;
 import com.frizzer.employeeapp.service.EmployeeService;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.PermitAll;
@@ -36,11 +35,10 @@ public class EmployeeResource {
   @POST
   @RolesAllowed("ADMIN")
   public Response save(@Valid EmployeeRequestDto employee) {
-    try {
-      return Response.ok(employeeService.save(employee)).build();
-    } catch (RuntimeException e) {
-      throw new DataNotFoundException("Employee with login " + employee.getLogin() + " already exists");
+    if (employeeService.checkIfLoginExists(employee.getLogin())) {
+      return Response.status(Status.CONFLICT).entity("Login " + employee.getLogin() + "is already taken").build();
     }
+    return Response.ok(employeeService.save(employee)).build();
   }
 
   @POST
@@ -59,6 +57,12 @@ public class EmployeeResource {
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response update(@PathParam("id") Long id, @Valid EmployeeRequestDto employee) {
+    if(!employeeService.checkIfUserExists(id)){
+      return Response.status(Status.NOT_FOUND).entity("User with id " + id + " doesn't exist").build();
+    }
+    if(employeeService.checkIfLoginExists(employee.getLogin())){
+      return Response.status(Status.CONFLICT).entity("Login " + employee.getLogin() + "is already taken").build();
+    }
     return Response.ok(employeeService.update(employee, id)).build();
 
   }
@@ -81,8 +85,11 @@ public class EmployeeResource {
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response delete(@PathParam("id") Long id) {
-    boolean entityExists = employeeService.delete(id);
-    return entityExists ? Response.ok(Status.OK).build() : Response.status(Status.NOT_FOUND).build();
+    if(!employeeService.checkIfUserExists(id)){
+      return Response.status(Status.NOT_FOUND).entity("User with id " + id + " doesn't exist").build();
+    }
+    employeeService.delete(id);
+    return Response.ok().build();
   }
 
   @GET

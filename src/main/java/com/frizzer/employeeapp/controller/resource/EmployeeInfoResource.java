@@ -59,9 +59,8 @@ public class EmployeeInfoResource {
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response delete(@PathParam("id") Long id) {
-    boolean entityExists = employeeInfoService.delete(id);
-    return entityExists ? Response.ok(Status.OK).build()
-        : Response.status(Status.NOT_FOUND).build();
+    employeeInfoService.delete(id);
+    return Response.ok(Status.OK).build();
   }
 
 

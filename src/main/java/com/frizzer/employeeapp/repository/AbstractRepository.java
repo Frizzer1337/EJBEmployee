@@ -2,6 +2,8 @@ package com.frizzer.employeeapp.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.ws.rs.WebApplicationException;
+import java.util.Optional;
 
 public abstract class AbstractRepository<T> {
 
@@ -20,18 +22,13 @@ public abstract class AbstractRepository<T> {
     return entityManager.merge(t);
   }
 
-  public T findById(Long id) {
-    return entityManager.find(getEntityClass(), id);
+  public Optional<T> findById(Long id) {
+    return Optional.ofNullable(entityManager.find(getEntityClass(), id));
   }
 
-  public boolean delete(Long id) {
-    T entity = findById(id);
-    if (entity == null) {
-      return false;
-    } else {
-      entityManager.remove(entity);
-      return true;
-    }
+  public void delete(Long id) {
+    T entity = findById(id).orElseThrow(() -> new WebApplicationException("Employee not found"));
+    entityManager.remove(entity);
   }
 
   public abstract Class<T> getEntityClass();

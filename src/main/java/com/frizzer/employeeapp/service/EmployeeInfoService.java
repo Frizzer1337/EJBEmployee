@@ -2,6 +2,7 @@ package com.frizzer.employeeapp.service;
 
 import com.frizzer.employeeapp.entity.employeeinfo.EmployeeInfo;
 import com.frizzer.employeeapp.entity.employeeinfo.EmployeeInfoDto;
+import com.frizzer.employeeapp.exception.EmployeeApplicationException;
 import com.frizzer.employeeapp.mapper.EmployeeInfoMapper;
 import com.frizzer.employeeapp.repository.EmployeeInfoRepository;
 import jakarta.ejb.EJB;
@@ -29,11 +30,13 @@ public class EmployeeInfoService {
   }
 
   @Transactional
-  public boolean delete(Long id) {
-    return employeeInfoRepository.delete(id);
+  public void delete(Long id) {
+    employeeInfoRepository.delete(id);
   }
 
   public EmployeeInfoDto findById(Long id) {
-    return EmployeeInfoMapper.INSTANCE.toDto(employeeInfoRepository.findById(id));
+    EmployeeInfo employeeInfo = employeeInfoRepository.findById(id)
+        .orElseThrow(() -> new EmployeeApplicationException("Employee info not found"));
+    return EmployeeInfoMapper.INSTANCE.toDto(employeeInfo);
   }
 }
