@@ -30,35 +30,44 @@ public class EmployeeInfoResource {
   @POST
   @Path("/{id}")
   @RolesAllowed("ADMIN")
-  public Response save(@PathParam("id") Long id,@Valid EmployeeInfoDto employee) {
-    return Response
-        .ok(employeeInfoService.save(employee, id))
-        .build();
+  public Response save(@PathParam("id") Long id, @Valid EmployeeInfoDto employee) {
+    if (!employeeInfoService.checkIfEmployeeInfoExists(id)) {
+      return Response.status(Status.NOT_FOUND).entity("Employee info with id " + id + " does not exist").build();
+    }
+    return Response.ok(employeeInfoService.save(employee, id)).build();
 
   }
 
   @PUT
   @Path("/{id}")
   @RolesAllowed("ADMIN")
-  public Response update(@PathParam("id") Long id,@Valid EmployeeInfoDto employee) {
-    return Response
-        .ok(employeeInfoService.update(employee, id))
-        .build();
+  public Response update(@PathParam("id") Long id, @Valid EmployeeInfoDto employee) {
+    if (!employeeInfoService.checkIfEmployeeInfoExists(id)) {
+      return Response.status(Status.NOT_FOUND).entity("Employee info with id " + id + " does not exist").build();
+    }
+    return Response.ok(employeeInfoService.update(employee, id)).build();
 
   }
 
   @GET
   @Path("/{id}")
   public Response findById(@PathParam("id") Long id) {
-    return Response.ok()
-        .entity(employeeInfoService.findById(id))
-        .build();
+    return Response.ok().entity(employeeInfoService.findById(id)).build();
+  }
+
+  @GET
+  @Path("")
+  public Response findAll(){
+    return Response.ok().entity(employeeInfoService.findAll()).build();
   }
 
   @DELETE
   @Path("/{id}")
   @RolesAllowed("ADMIN")
   public Response delete(@PathParam("id") Long id) {
+    if (!employeeInfoService.checkIfEmployeeInfoExists(id)) {
+      return Response.status(Status.NOT_FOUND).entity("Employee info with id " + id + " does not exist").build();
+    }
     employeeInfoService.delete(id);
     return Response.ok(Status.OK).build();
   }

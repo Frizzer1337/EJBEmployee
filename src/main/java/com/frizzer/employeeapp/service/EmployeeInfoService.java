@@ -8,6 +8,7 @@ import com.frizzer.employeeapp.repository.EmployeeInfoRepository;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.transaction.Transactional;
+import java.util.List;
 
 @Stateless
 public class EmployeeInfoService {
@@ -39,4 +40,13 @@ public class EmployeeInfoService {
         .orElseThrow(() -> new EmployeeApplicationException("Employee info not found"));
     return EmployeeInfoMapper.INSTANCE.toDto(employeeInfo);
   }
+
+  public List<EmployeeInfoDto> findAll() {
+    return employeeInfoRepository.findAll().stream().map(EmployeeInfoMapper.INSTANCE::toDto).toList();
+  }
+
+  public boolean checkIfEmployeeInfoExists(Long id) {
+    return employeeInfoRepository.findById(id).isPresent();
+  }
+
 }
