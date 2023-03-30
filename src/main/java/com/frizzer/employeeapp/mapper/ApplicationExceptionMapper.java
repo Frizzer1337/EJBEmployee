@@ -7,8 +7,7 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 @Provider
-public class PersistenceMapper implements ExceptionMapper<WebApplicationException> {
-
+public class ApplicationExceptionMapper implements ExceptionMapper<WebApplicationException> {
   @Override
   public Response toResponse(WebApplicationException exception) {
     return Response.status(Status.BAD_REQUEST)
