@@ -4,7 +4,7 @@ import com.frizzer.employeeapp.controller.resource.EmployeeInfoResource;
 import com.frizzer.employeeapp.controller.resource.EmployeeResource;
 import com.frizzer.employeeapp.controller.resource.secure.TokenAuthenticationFilter;
 import com.frizzer.employeeapp.controller.resource.secure.TokenAuthorizationFilter;
-import com.frizzer.employeeapp.mapper.PersistenceMapper;
+import com.frizzer.employeeapp.mapper.ApplicationExceptionMapper;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -26,7 +26,7 @@ public class EmployeeApplication extends Application {
     resources.add(EmployeeInfoResource.class);
     resources.add(TokenAuthenticationFilter.class);
     resources.add(TokenAuthorizationFilter.class);
-    resources.add(PersistenceMapper.class);
+    resources.add(ApplicationExceptionMapper.class);
   }
 
 }
