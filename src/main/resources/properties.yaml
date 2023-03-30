@@ -1,0 +1,5 @@
+application:
+  roles:
+    admin: "ADMIN"
+    worker: "WORKER"
+
