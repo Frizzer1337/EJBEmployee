@@ -1,32 +1,33 @@
-package com.frizzer.employeeapp.entity;
+package com.frizzer.employeeapp.entity.employeeinfo;
 
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Table(name = "employee", schema = "employee_task")
-public class Employee {
+@Table(name = "employee_info", schema = "employee_task")
+public class EmployeeInfo {
+
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @NonNull
   private Long id;
+  @NonNull
   private String name;
+  @NonNull
   private String surname;
-  @Enumerated(EnumType.STRING)
-  private EmployeeRole role;
+  @NonNull
   private BigDecimal salary;
 }

@@ -21,11 +21,18 @@
               <version>1.5.3.Final</version>
             </path>
             <path>
+              <artifactId>lombok-mapstruct-binding</artifactId>
               <groupId>org.projectlombok</groupId>
+              <version>0.2.0</version>
+            </path>
+            <path>
               <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
               <version>1.18.20</version>
             </path>
           </annotationProcessorPaths>
+          <source>17</source>
+          <target>17</target>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.8.1</version>
@@ -33,6 +40,22 @@
     </plugins>
   </build>
   <dependencies>
+    <dependency>
+      <artifactId>jakarta.validation-api</artifactId>
+      <groupId>jakarta.validation</groupId>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+    <dependency>
+      <artifactId>rest-assured</artifactId>
+      <groupId>io.rest-assured</groupId>
+      <scope>test</scope>
+      <version>5.3.0</version>
+    </dependency>
     <dependency>
       <artifactId>jakarta.enterprise.cdi-api</artifactId>
       <groupId>jakarta.enterprise</groupId>
@@ -74,6 +97,12 @@
       <version>${junit.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.2.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <version>2.2.3</version>
@@ -84,8 +113,8 @@
       <version>1.5.3.Final</version>
     </dependency>
     <dependency>
-      <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
       <version>8.0.30</version>
     </dependency>
     <dependency>
@@ -100,6 +129,54 @@
       <scope>compile</scope>
       <version>1.18.20</version>
     </dependency>
+    <dependency>
+      <artifactId>jjwt-api</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <version>0.11.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jjwt-impl</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <scope>runtime</scope>
+      <version>0.11.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jjwt-jackson</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <scope>runtime</scope>
+      <version>0.11.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      <version>1.6.6</version>
+    </dependency>
+    <dependency>
+      <artifactId>commons-codec</artifactId>
+      <groupId>commons-codec</groupId>
+      <version>1.15</version>
+    </dependency>
+    <dependency>
+      <artifactId>hibernate-validator</artifactId>
+      <groupId>org.hibernate.validator</groupId>
+      <version>6.0.13.Final</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxb-api</artifactId>
+      <groupId>javax.xml.bind</groupId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxb-runtime</artifactId>
+      <groupId>org.glassfish.jaxb</groupId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>gson</artifactId>
+      <groupId>com.google.code.gson</groupId>
+      <scope>test</scope>
+      <version>2.10</version>
+    </dependency>
   </dependencies>
   <groupId>com.frizzer.employeeapp</groupId>
   <modelVersion>4.0.0</modelVersion>
@@ -109,8 +186,8 @@
 
   <properties>
     <junit.version>5.8.2</junit.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
